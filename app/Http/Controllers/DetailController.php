@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Cart;
+
+use Illuminate\Support\Facades\Auth;
 class DetailController extends Controller
 {
      /**
@@ -19,4 +22,18 @@ class DetailController extends Controller
             'product' => $product
         ]);
     }
+    
+    public function add(Request $request, $id)
+    {
+        $data = [
+            'products_id' => $id,
+            'users_id'    => Auth::user()->id,
+        ];
+
+        Cart::Create($data);
+
+            return redirect()->route('cart');
+    }
+
+
 }
