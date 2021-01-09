@@ -23,7 +23,7 @@
         </div>
       </div>
     </section>
-    <section class="store-gallery" id="gallery">
+    <section class="store-gallery mb-3" id="gallery">
       <div class="container">
         <div class="row">
           <div class="col-lg-8" data-aos="zoom-in">
@@ -50,12 +50,19 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-8">
-              <h1>Sofa Tersantuy</h1>
-              <div class="owner">Adiher</div>
-              <div class="price">$1,125</div>
+              <h1>{{ $product->name }}</h1>
+              <div class="owner">By {{ $product->user ? $product->user->store_name:"no owner" }}</div>
+              <div class="price">$ {{ number_format($product->price) }}</div>
             </div>
             <div class="col-lg-2" data-aos="zoom-in">
-              <a href="/cart.html" class="btn btn-success px-4 text-white btn-block mb-3">Add to Cart</a>
+              @auth
+              <form action="" method="POST" enctype="multipart/form-data">
+                @csrf
+                  <button type="submit" class="btn btn-success px-4 text-white btn-block mb-3">Add to Cart</button>
+              </form>
+                @else   
+                <a href="{{ route('login') }}" class="btn btn-success px-4 text-white btn-block mb-3">Sign In To Add</a>
+              @endauth
             </div>
           </div>
         </div>
@@ -64,17 +71,7 @@
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-8">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Velit asperiores modi minima, debitis labore qui cumque dicta perferendis tempora dolores veniam vitae saepe accusantium nulla officia est neque harum necessitatibus.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic molestias eligendi ipsa nemo expedita, natus accusamus? Ex natus debitis qui a ea esse! Veritatis, laboriosam eligendi laudantium asperiores dignissimos voluptatibus.
-                
-
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Perferendis in odit cum laborum ipsa unde ipsam voluptatem obcaecati consequatur fuga suscipit, porro fugit magnam reprehenderit reiciendis doloremque voluptate minima hic!
-              </p>
+              {!! $product->description !!}
             </div>
             
           </div>
@@ -92,7 +89,7 @@
             <div class="col-12 col-lg-8">
               <ul class="list-unstyled">
                 <li class="media">
-                  <img src="images/icon-testimonial-1.png" alt="" class="mr-3 rounded-circle">
+                  <img src="/images/icon-testimonial-1.png" alt="" class="mr-3 rounded-circle">
                   <div class="media-body">
                     <h5 class="mb-2 mb-1">Audrey Lolita</h5>
                     I thought it was not good for living room. I really happy
@@ -100,7 +97,7 @@
                   </div>
                 </li>
                 <li class="media">
-                  <img src="images/icon-testimonial-2.png" alt="" class="mr-3 rounded-circle">
+                  <img src="/images/icon-testimonial-2.png" alt="" class="mr-3 rounded-circle">
                   <div class="media-body">
                     <h5 class="mb-2 mb-1">Reva Elizabeth</h5>
                      Color is great with minimalist concept. Even I thought it was made by Cactus industry. 
@@ -108,7 +105,7 @@
                   </div>
                 </li>
                 <li class="media">
-                  <img src="images/icon-testimonial-3.png" alt="" class="mr-3 rounded-circle">
+                  <img src="/images/icon-testimonial-3.png" alt="" class="mr-3 rounded-circle">
                   <div class="media-body">
                     <h5 class="mb-2 mb-1">Geraldine </h5>
                     When I saw at first, it was really awesome to have with.
@@ -134,22 +131,13 @@
     data: {
       activePhoto: 0,
       photos: [
-        {
-          id: 1,
-          url: "/images/product-details-1.jpg",
-        },
-        {
-          id: 2,
-          url: "/images/product-details-2.jpg",
-        },
-        {
-          id: 3,
-          url: "/images/product-details-3.jpg",
-        },
-        { 
-          id: 4,
-          url: "/images/product-details-4.jpg",
-        },
+        @foreach($product->galleries as $gallery)
+          {
+            id: {{ $gallery->id }},
+            url: "{{ Storage::url($gallery->photos) }}",
+          },
+
+        @endforeach
       ],
     },
     methods: {
