@@ -38,54 +38,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                          @foreach ($carts as $cart)
+                           <tr>
                                 <td style="width: 20%;">
-                                    <img src="images/product-cart-1.jpg" alt=""  class="cart-image">
+                                    @if($cart->product->galleries)
+                                    <img src="{{ Storage::url($cart->product->galleries->first()->photos) }}" alt=""  class="cart-image">
+                                     @endif
                                 </td>
                                 <td style="width: 35%;">
-                                    <div class="product-title">Sofa Tersantuy</div>
-                                    <div class="product-subtitle">By Adiher</div>
+                                    <div class="product-title">{{ $cart->product->name }}</div>
+                                    <div class="product-subtitle">{{ $cart->product->user->store_name  }}</div>
                                 </td>
                                 <td style="width: 35%;">
-                                    <div class="product-title">$25,112</div>
+                                    <div class="product-title">$ {{ number_format($cart->product->price) }}</div>
                                     <div class="product-subtitle">USD</div>
                                 </td>
                                 <td style="width: 20%;">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
+                                    <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-remove-cart">Remove</button>
+                                    </form>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 20%;">
-                                    <img src="images/product-cart-2.jpg" alt=""  class="cart-image">
-                                </td>
-                                <td style="width: 35%;">
-                                    <div class="product-title">Sneakers Mantul</div>
-                                    <div class="product-subtitle">By Dr.Tirta</div>
-                                </td>
-                                <td style="width: 35%;">
-                                    <div class="product-title">$50,267</div>
-                                    <div class="product-subtitle">USD</div>
-                                </td>
-                                <td style="width: 20%;">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 20%;">
-                                    <img src="images/product-cart-3.jpg" alt=""  class="cart-image">
-                                </td>
-                                <td style="width: 35%;">
-                                    <div class="product-title">Coffe Tatakan</div>
-                                    <div class="product-subtitle">By Mamang Garox</div>
-                                </td>
-                                <td style="width: 35%;">
-                                    <div class="product-title">$4,200</div>
-                                    <div class="product-subtitle">USD</div>
-                                </td>
-                                <td style="width: 20%;">
-                                    <a href="#" class="btn btn-remove-cart">Remove</a>
-                                </td>
-                            </tr>
+                             </tr>
+                          @endforeach
+                     
                         </tbody>
                     </table>
                 </div>
