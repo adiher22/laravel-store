@@ -28,7 +28,7 @@ Route::get('/register/success', 'Auth\RegisterController@success')->name('regist
 Route::get('/success', 'CartController@success')->name('success');
 
 
-Route::group(['middleware' => ['Auth']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
         Route::get('/cart', 'CartController@index')->name('cart');
         Route::delete('/cart/{id}', 'CartController@delete')->name('cart-delete');
