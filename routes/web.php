@@ -40,8 +40,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/dashboard/products/create', 'DashboardProductController@create')->name('dashboard-product-create');
         Route::get('/dashboard/products/{id}', 'DashboardProductController@details')->name('dashboard-product-details');
 
-        Route::get('/dashboard/transaction', 'DashboardTransactionController@index')->name('dashboard-product-transaction');
-        Route::get('/dashboard/transaction/{id}', 'DashboardTransactionController@details')->name('dashboard-product-details');
+        Route::get('/dashboard/transaction', 'DashboardTransactionController@index')->name('dashboard-transactions');
+        Route::get('/dashboard/transaction/{id}', 'DashboardTransactionController@details')->name('dashboard-transactions-details');
 
         Route::get('/dashboard/settings', 'DashboardSettingsController@store')->name('dashboard-settings-store');
         Route::get('/dashboard/account', 'DashboardSettingsController@account')->name('dashboard-settings-account');
