@@ -67,13 +67,18 @@ data-aos="fade-down">
           <ul class="navbar-nav d-block d-lg-none">
             <li class="nav-item">
               <a href="#" class="nav-link">
-                Hi, Adi
+                Hi, {{ Auth::user()->name }}
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link d-inline-block">
-                Cart
-              </a>
+              <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+              <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a>
+              <div class="dropdown-divider"></div>
+              <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+              class="dropdown-item">{{ __('Logout') }}</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
             </li>
           </ul>
     @endauth
