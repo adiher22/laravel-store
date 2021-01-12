@@ -34,7 +34,7 @@
             <a href="{{ url('dashboard/transactions') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions')) ? 'active' : '' }}">
               Transaction
             </a>
-            <a href="{{ url('dashboard/settings-store') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/settings*')) ? 'active' : '' }}">
+            <a href="{{ url('dashboard/settings') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/settings*')) ? 'active' : '' }}">
               Store Settings
             </a>
             <a href="{{ url('dashboard/settings-account') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}">
