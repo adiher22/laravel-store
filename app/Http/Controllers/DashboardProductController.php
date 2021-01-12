@@ -28,9 +28,44 @@ class DashboardProductController extends Controller
             'products' => $products
         ]);
     }
-    public function details()
+    public function details(Request $request, $id)
     {
-        return view('pages.dashboard-products-details');
+        $product = Product::with(['galleries','user','category'])->findOrFail($id);
+        $categories = Category::all();
+
+        return view('pages.dashboard-products-details',[
+            'product' => $product,
+            'categories' => $categories 
+        ]);
+    }
+    public function uploadGallery(Request $request)
+    {
+        $data = $request->all();
+
+        $data['photos'] = $request->file('photos')->store('assets/product','public');
+        // Model product create
+        ProductGallery::create($data);
+
+        return redirect()->route('dashboard-product-details',$request->products_id);
+    }
+    public function deleteGallery(Request $request,$id)
+    {
+        $item = ProductGallery::findOrFail($id);
+        $item->delete();
+        
+        return redirect()->route('dashboard-product-details',$item->products_id);
+    }
+    public function update(ProductRequest $request, $id)
+    {
+        $data = $request->all();
+        
+        $item = Product::findOrFail($id);
+
+        $data['slug'] = Str::slug($request->name);
+        
+        $item->update($data);
+
+        return redirect()->route('dashboard-product');
     }
     public function create()
     {

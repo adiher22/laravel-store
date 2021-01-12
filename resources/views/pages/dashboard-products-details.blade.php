@@ -16,36 +16,49 @@
         <div class="dashboard-content">
           <div class="row">
             <div class="col-12">
-              <form action="">
+              @if($errors->any())
+                    <div class="alert alert-danger">
+                      <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  @endif
+              <form action="{{ route('dashboard-product-update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="users_id" value="{{ Auth::user()->id }}">
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Product Name</label>
-                          <input type="text" name="product_name" value="Coffe Boga Rasa" class="form-control">
+                          <input type="text" name="name" value="{{ $product->name }}" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label>Price</label>
-                          <input type="number" name="price" value="12.399" class="form-control">
+                          <input type="number" name="price" value="{{ $product->price }}" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label>Kategori</label>
-                          <select name="kategori" id="" class="form-control">
-                            <option value="" disable>Select Category</option>
+                          <label for="">Kategori</label>
+                          <select name="categories_id" class="form-control">
+                            <option value="{{ $product->categories_id }}">Tidak Diganti {{ $product->category->name }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+    
                           </select>
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label>Description</label>
-                          <textarea name="editor" id="" cols="30" rows="10">The Nike Air Max 720 SE goes bigger than ever before with Nike's tallest Air unit yet for unimaginable,
-                            all-day comfort. There's super breathable fabrics on the upper, while colours add a modern edge. Bring the past into the future with the Nike Air Max 2090, 
-                            a bold look inspired by the DNA of the iconic Air Max 90. Brand-new Nike Air cushioning</textarea>
+                          <textarea name="description" id="editor">{!! $product->description !!}</textarea>
                         </div>
                       </div>
                         <div class="col">
@@ -63,33 +76,25 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
+                      @foreach ($product->galleries as $gallery)
                       <div class="col-md-4">
+                    
                         <div class="gallery-container">
-                          <img src="/images/product-card-1.png" alt="" class="w-100">
-                          <a href="" class="delete-gallery">
-                            <img src="/images/icon-delete.svg" alt="">
-                          </a>
+                          <img src="{{ Storage::url($gallery->photos ?? '') }}" class="w-100">
+                            <a href="{{ route('dashboard-product-gallery-delete', $gallery->id) }}" class="delete-gallery">
+                              <img src="/images/icon-delete.svg" alt="">
+                            </a>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="gallery-container">
-                          <img src="/images/product-card-2.png" alt="" class="w-100">
-                          <a href="" class="delete-gallery">
-                            <img src="/images/icon-delete.svg" alt="">
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="gallery-container">
-                          <img src="/images/product-card-3.png" alt="" class="w-100">
-                          <a href="" class="delete-gallery">
-                            <img src="/images/icon-delete.svg" alt="">
-                          </a>
-                        </div>
-                      </div>
+                      @endforeach
                       <div class="col-12">
-                        <input type="file"  id="file" style="display: none;" multiple>
-                        <button class="btn btn-primary btn-block mt-4" onclick="thisFileUpload()">Add Photo</button>
+                        <form action="{{ route('dashboard-product-gallery-upload') }}" method="POST" enctype="multipart/form-data">
+                          @csrf
+                          <input type="hidden" name="products_id" value="{{ $product->id }}">
+                          <input type="file" name="photos" id="file" style="display: none;" onchange="form.submit()">
+                          <button type="button" class="btn btn-primary btn-block mt-4" onclick="thisFileUpload()">Add Photo</button>
+
+                        </form>
                        </div>
                      </div>
                    </div>
