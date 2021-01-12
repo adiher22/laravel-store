@@ -16,66 +16,69 @@
         <div class="dashboard-content">
           <div class="row">
             <div class="col-12">
-              <form action="">
+              <form action="{{ route('dashboard-settings-redirect','dashboard-settings-account') }}" method="POST" id="locations" enctype="multipart/form-data00">
+                @csrf
                 <div class="card">
                   <div class="card-body">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" class="form-control" value="Adi Hernawan" />
+                            <input type="text" id="name" name="name" class="form-control" value="{{ $user->name }}" />
                         </div>
                        </div>
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="email">Your Email</label>
-                              <input type="email" id="email" name="email" class="form-control" value="adi@adiher-store.com" />
+                              <input type="email" id="email" name="email" class="form-control" value="{{ $user->email }}" />
                           </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                             <label for="addressOne">Address 1</label>
-                            <input type="text" id="addressOne" name="addressOne" class="form-control" value="Setra Dutra Centra" />
+                            <input type="text" id="addressOne" name="address_one" class="form-control" value="{{ $user->address_one }}" />
                         </div>
                        </div>
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="addressTwo">Address 2</label>
-                              <input type="text" id="addressTwo" name="addressTwo" class="form-control" value="Bekasi, Cikarang Selatan." />
+                              <input type="text" id="addressTwo" name="address_two" class="form-control" value="{{ $user->address_two }}" />
                           </div>
                       </div>
                       <div class="col-md-4">
-                          <div class="form-group">
-                              <label for="province">Province</label>
-                              <select id="province" name="province" class="form-control">
-                                  <option value="West Java">West Java</option>
-                              </select>
-                          </div>
+                        <div class="form-group">
+                            <label for="provinces_id">Province</label>
+                            <select id="provinces_id" name="provinces_id" class="form-control" v-if="provinces" v-model="provinces_id">
+                                <option v-for="province in provinces" :value="province.id">@{{ province.name }}</option>
+                            </select>
+                            <select v-else class="form-control"></select>
+                        </div>
                       </div>
                       <div class="col-md-4">
                           <div class="form-group">
-                              <label for="city">City</label>
-                              <select id="city" name="city" class="form-control">
-                                  <option value="Bekasi">Bekasi</option>
+                              <label for="regencies_id">City</label>
+                              <select id="regencies_id" name="regencies_id" class="form-control" v-if="regencies" v-model="regencies_id">
+                                  <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}</option>
                               </select>
+                              <select v-else class="form-control"></select>
                           </div>
                       </div>
                       <div class="col-md-4">
                           <div class="form-group">
                               <label for="postalCode">Postal Code</label>
-                              <input type="text" id="postalCode" name="postalCode" class="form-control" value="17533" />
+                              <input type="text" id="zip_code" name="zip_code" class="form-control" value="{{ $user->zip_code }}" />
                           </div>
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="country">Country</label>
-                              <input type="text" id="country" name="country" class="form-control" value="Indonesia" />
+                              <input type="text" id="country" name="country" class="form-control" value="{{ $user->country }}" />
                           </div>
                       </div>
                       <div class="col-md-6">
                           <div class="form-group">
                               <label for="mobile">Mobile</label>
-                              <input type="text" id="mobile" name="mobile" class="form-control" value="+628 998 2233" />
+                              <input type="text" id="phone_number" name="phone_number" class="form-control" value="{{ $user->phone_number }}" />
                           </div>
                       </div>
                     </div>
@@ -93,3 +96,45 @@
       </div>
     </div>
 @endsection
+@push('addon-script')
+<script src="/vendor/vue/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+   var locations = new Vue({
+    el: "#locations",
+    mounted() {
+        AOS.init();
+        this.getProvincesData(); 
+        },
+        data: {
+            provinces : null,
+            regencies : null,
+            provinces_id : null,
+            regencies_id : null
+        
+        },
+        methods: {
+            getProvincesData(){
+                var self = this
+                axios.get('{{ route('api-provinces') }}')
+                .then(function(response){
+                    self.provinces = response.data;
+                })
+            },
+            getRegenciesData(){
+                var self = this
+                axios.get('{{ url('api/regencies') }}/' + self.provinces_id)
+                .then(function(response){
+                    self.regencies = response.data;
+                })
+            },
+        },
+        watch: {
+            provinces_id: function(val, oldVal) {
+                this.regencies_id = null;
+                this.getRegenciesData();
+            },
+        }
+  });
+</script>
+@endpush
