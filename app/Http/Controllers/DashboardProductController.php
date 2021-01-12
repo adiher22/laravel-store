@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Product;
+use Illuminate\Support\Facades\Auth;
 class DashboardProductController extends Controller
 {
    /**
@@ -13,7 +14,13 @@ class DashboardProductController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard-product');
+        $products = Product::with(['galleries','category'])
+        ->where('users_id', Auth::user()->id)
+        ->get();
+
+        return view('pages.dashboard-product',[
+            'products' => $products
+        ]);
     }
     public function details()
     {

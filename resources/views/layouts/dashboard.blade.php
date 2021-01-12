@@ -28,16 +28,16 @@
             <a href="{{ url('dashboard') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard')) ? 'active' : '' }}">
               Dashboard
             </a>
-            <a href="{{ url('dashboard-product') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/product*')) ? 'active' : '' }}">
+            <a href="{{ url('dashboard/products') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/product*')) ? 'active' : '' }}">
               My Product
             </a>
-            <a href="{{ url('dashboard-transactions') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions')) ? 'active' : '' }}">
+            <a href="{{ url('dashboard/transactions') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/transactions')) ? 'active' : '' }}">
               Transaction
             </a>
-            <a href="{{ url('dashboard-settings-store') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/settings*')) ? 'active' : '' }}">
+            <a href="{{ url('dashboard/settings-store') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/settings*')) ? 'active' : '' }}">
               Store Settings
             </a>
-            <a href="{{ url('dashboard-settings-account') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}">
+            <a href="{{ url('dashboard/settings-account') }}" class="list-group-item list-group-item-action {{ (request()->is('dashboard/account*')) ? 'active' : '' }}">
               My Account
             </a>
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="list-group-item list-group-item-action"
