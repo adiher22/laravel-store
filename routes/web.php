@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function() {
 
         Route::get('/dashboard/settings', 'DashboardSettingsController@store')->name('dashboard-settings-store');
         Route::get('/dashboard/account', 'DashboardSettingsController@account')->name('dashboard-settings-account');
+        Route::post('/dashboard/account/{redirect}', 'DashboardSettingsController@update')->name('dashboard-settings-redirect');
 });
 
 // ->middleware('Auth', 'Admin');
