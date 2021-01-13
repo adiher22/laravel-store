@@ -28,113 +28,55 @@
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="sell-product" role="tabpanel" aria-labelledby="sell-tab">
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="/images/dashboard-icon-product-1.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Coffe Boga Rasa
-                        </div>
-                        <div class="col-md-3">
-                          Adi Hernawan
-                        </div>
-                        <div class="col-md-3">
-                          12 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="/images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="/images/dashboard-icon-product-2.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sapatu Cibaduyut
-                        </div>
-                        <div class="col-md-3">
-                          Kang Mus
-                        </div>
-                        <div class="col-md-3">
-                          11 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="/images/dashboard-arrow-right.svg" alt="">
+                  @foreach ($sellTransactions as $sell)
+                    <a href="{{ route('dashboard-transactions-details',$sell->id) }}" class="card card-list d-block">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-1">
+                            <img src="{{ Storage::url($sell->product->galleries->first()->photos ?? '') }}" class="w-50"alt="">
+                          </div>
+                          <div class="col-md-4">
+                            {{ $sell->product->name }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ $sell->product->user->store_name }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ $sell->created_at }}
+                          </div>
+                          <div class="col-md-1 d-none d-md-block">
+                            <img src="/images/dashboard-arrow-right.svg" alt="">
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="/images/dashboard-icon-product-3.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sofa Tersantuy
-                        </div>
-                        <div class="col-md-3">
-                          Fatur Ahead
-                        </div>
-                        <div class="col-md-3">
-                          10 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="/images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
+                    </a>
+                  @endforeach
                 </div>
+              </div>
                 <div class="tab-pane fade" id="buy-product" role="tabpanel" aria-labelledby="buy-tab">
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="/images/dashboard-icon-product-2.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sapatu Cibaduyut
-                        </div>
-                        <div class="col-md-3">
-                          Kang Mus
-                        </div>
-                        <div class="col-md-3">
-                          11 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="/images/dashboard-arrow-right.svg" alt="">
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                  <a href="dashboard-transactions-details.html" class="card card-list d-block">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-1">
-                          <img src="/images/dashboard-icon-product-3.png" alt="">
-                        </div>
-                        <div class="col-md-4">
-                          Sofa Tersantuy
-                        </div>
-                        <div class="col-md-3">
-                          Fatur Ahead
-                        </div>
-                        <div class="col-md-3">
-                          10 Oktober 2020
-                        </div>
-                        <div class="col-md-1 d-none d-md-block">
-                          <img src="/images/dashboard-arrow-right.svg" alt="">
+                  @foreach ($buyTransactions as $buy)
+                    <a href="{{ route('dashboard-transactions-details',$sell->id) }}" class="card card-list d-block">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-1">
+                            <img src="{{ Storage::url($sell->product->galleries->first()->photos ?? '') }}" class="w-50"alt="">
+                          </div>
+                          <div class="col-md-4">
+                            {{ $sell->product->name }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ $sell->product->user->store_name }}
+                          </div>
+                          <div class="col-md-3">
+                            {{ $sell->created_at }}
+                          </div>
+                          <div class="col-md-1 d-none d-md-block">
+                            <img src="/images/dashboard-arrow-right.svg" alt="">
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </a>
+                    </a>
+                  @endforeach
                 </div>            
               </div>
             </div>
