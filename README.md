@@ -7,7 +7,7 @@ Aplikasi web marketplace store dimana user bisa membeli dan menjual product.
 - Web Server Apache 
 
 ## Install
-1. Run `git clone https://github.com/adiher22/rekamMedis.git` or download the repository using download button
+1. Run `git clone https://github.com/adiher22/laravel-store.git` or download the repository using download button
 2. Create new mysql/mariaDB database and import the sql file provided (`marketplace.sql`)
 3. Copy folder and open in your directory
 4. Run `php artisan serve` 
