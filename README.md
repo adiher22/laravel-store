@@ -17,7 +17,7 @@ Aplikasi web marketplace store dimana user bisa membeli dan menjual product.
 - Framework Laravel 7
 - Framework Bootstrap, 
 - SASS
-- Lirbary jQuery,
+- Library jQuery,
 - Laravel Datatables 
 - Framework Vue JS, 
 - Library Toastr
