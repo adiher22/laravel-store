@@ -68,7 +68,7 @@
                 
                 <a href="#" class="nav-link" id="navbarDropdown" role="button" data-toggle="dropdown">
                   <img src="/images/cat.jpg" alt="" class="rounded-circle mr-2 profile-picture">
-                  Hi, Adi
+                  Hi, {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu">
                 
@@ -82,7 +82,7 @@
               <ul class="navbar-nav d-block d-lg-none">
                 <li class="nav-item">
                   <a href="#" class="nav-link">
-                    Hi, Adi
+                    Hi, {{ Auth::user()->name }}
                   </a>
                 </li>
               
