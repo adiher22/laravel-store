@@ -4,7 +4,7 @@ Aplikasi web marketplace store dimana user bisa membeli dan menjual product.
 ## System Requirement
 - Git (for cloning project)
 - PHP >= 7.2.5
-- Web Server Apache 
+- Web Server Apache/Nginx 
 
 ## Install
 1. Run `git clone https://github.com/adiher22/laravel-store.git` or download the repository using download button
